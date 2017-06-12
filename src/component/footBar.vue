@@ -2,7 +2,8 @@
   <div class="foot-bar">
       <a href="https://itunes.apple.com/us/app/94bank-bu-shi-yin-xing-de94bank/id878005164?l=zh&ls=1&mt=8">下载APP</a>
       <a href="javascript:void(0);" id="contact_us">联系我们</a>
-      <a href="/Product/ProductList">理财中心</a>
+      <router-link to="/Member/AccountCenter">理财中心</router-link>
+      <!-- Copyright&nbsp;&copy;&nbsp;{{author}} - 2016 All rights reserved -->
   </div>
 </template>
 
@@ -10,13 +11,18 @@
 export default {
   data () {
     return {
-      author: "微信公众号 jinkey-love"
+
     }
+  },
+  computed:{
+   author () {
+     return this.$store.state.author
+   }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .foot-bar{
     position: fixed;
     display: -webkit-box;
