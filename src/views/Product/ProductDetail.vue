@@ -1,6 +1,6 @@
 <template>
-  <div class="ac-warp">
-    AccountCenter
+  <div class="pdd-warp">
+    productDetail
     <foot-bar></foot-bar>
   </div>
 </template>
@@ -8,10 +8,11 @@
 
 </style>
 <script>
+
   import footBar from '../../component/footBar.vue';
   export default{
     components: {
-      footBar:footBar
+      footBar
     },
     data(){
       return{
@@ -20,6 +21,8 @@
     }
   }
 </script>
-<style>
-
+<style scoped>
+  body{
+      background-color: #f2f2f2;
+  }
 </style>

@@ -1,6 +1,8 @@
 import siftFinance from '../views/Product/siftFinanceList.vue'
 import steward from '../views/Product/stewardList.vue'
 import AccountCenter from '../views/Member/AccountCenter.vue'
+import ProductDetail from '../views/Product/ProductDetail.vue'
+import Login from '../views/Member/Login.vue'
 
 // 配置路由规则
 const routes = [
@@ -9,12 +11,20 @@ const routes = [
     component: siftFinance
   },
   {
-    path: '/steward',
+    path: '/Product/steward',
     component: steward
   },
   {
-    path: '/AccountCenter',
+    path: '/Product/ProductDetail',
+    component: ProductDetail
+  },
+  {
+    path: '/Member/AccountCenter',
     component: AccountCenter
+  },
+  {
+    path: '/Member/Login',
+    component: Login
   }
 ]
 export default routes

@@ -1,6 +1,6 @@
 <template>
   <div class="pd-cont">
-    <a v-for="item in items" v-bind:href="item.appTemplateType!=6 ? '/Product/ProductDetail?ProductId='+item.id+'&ProductTypeId='+item.typeId+'&pName='+item.title : '/Product/SunPrivateDetail?pName='+item.title" class="pd-list">
+    <router-link v-for="item in items" :key="item.appTemplateType" :to="{path:item.appTemplateType!= 6 ? '/Product/ProductDetail?ProductId='+item.id+'&ProductTypeId='+item.typeId+'&pName='+item.title : '/Product/SunPrivateDetail?pName='+item.title}" class="pd-list">
         <div class="list-tit">
           <h2>{{item.title}}
             <span class="forsale" v-if="item.status===1">待售</span>
@@ -28,12 +28,16 @@
             <div class="ac-warn haswarn" v-else-if="item.status===1">已提醒</div>
           </li>
         </ul>
-      </a>
+      </router-link>
   </div>
 </template>
 <script type="text/javascript">
+import api from '../fetch/api';
 import * as _ from '../assets/js/productList';
 export default {
+  props: {
+    id : String
+  },
   data () {
     return {
       items: [],
@@ -41,43 +45,41 @@ export default {
       cirArr: []
     }
   },
-  mounted: function() {
-    this.$http.post('http://192.168.2.13:817/api/Ajax', {
-          D: '{"ProductTypeId":2,"PageIndex":1,"PageSize":10}',
-          M : 'GetProductList'
-        }, {
-        headers: {
+  created: function() {
+    let data = {
+      D: '{"ProductTypeId":'+this.id+',"PageIndex":1,"PageSize":10}',
+      M : 'GetProductList'
+    }
+    api.Product(data)
+      .then(res => {
+          console.log(res)
+          // this.items = res.data;
+          // console.log(this.items);
+      })
+      .catch(error => {
+          this.items = JSON.parse(error.data.D);
+          for(let i=0; i<this.items.length; i++){
+             let sta = this.items[i].status;
+             let starTime = this.items[i].serverTimeText;
+             let endTime = this.items[i].startTimeText;
+             let second =(Date.parse(endTime) - Date.parse(starTime))/1000;
+             if(second > 0 && sta == 1){
+               this.timeArr.push(second);
+             }
+             //百分比
+             let percentage = this.items[i].remainingPercentage;
+             if(percentage > 0 && sta == 0){
+               this.cirArr.push(percentage);
+             }
+           }
+           for(let i=0; i<this.timeArr.length; i++){
+             this.contTimeDown(this.timeArr[i],i);
+           }
 
-        },
-        emulateJSON: true
-    }).then(function(response) {
-        this.items = JSON.parse(JSON.parse(response.bodyText).D);
-        for(let i=0; i<this.items.length; i++){
-          let sta = this.items[i].status;
-          let starTime = this.items[i].serverTimeText;
-          let endTime = this.items[i].startTimeText;
-          let second =(Date.parse(endTime) - Date.parse(starTime))/1000;
-          if(second > 0 && sta == 1){
-            this.timeArr.push(second);
-          }
-          //百分比
-          let percentage = this.items[i].remainingPercentage;
-          if(percentage > 0 && sta == 0){
-            this.cirArr.push(percentage);
-          }
-        }
-        for(let i=0; i<this.timeArr.length; i++){
-          this.contTimeDown(this.timeArr[i],i);
-        }
-
-        for(let i=0; i<this.cirArr.length; i++){
-          this.drawCir(this.cirArr[i]*3.6,i);
-        }
-
-    }, function(response) {
-        // 这里是处理错误的回调
-        console.log(response)
-    });
+           for(let i=0; i<this.cirArr.length; i++){
+             this.drawCir(this.cirArr[i]*3.6,i);
+           }
+      })
   },
   methods : {
     contTimeDown(second,i){
@@ -95,7 +97,7 @@ export default {
 </script>
 
 <style scoped>
-.pd-container{
+.pd-cont{
     margin-bottom: 49px;
 }
 .pd-list{

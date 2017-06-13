@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// 引入 axios
-import axios from 'axios'
-
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -17,14 +14,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    // 封装一个 ajax 方法
-    saveForm (context) {
-      axios({
-        method: 'post',
-        url: '/user',
-        data: context.state.test02
-      })
-    }
+
   }
 })
 

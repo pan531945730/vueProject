@@ -3,7 +3,7 @@
       <!-- <input placeholder="请输入内容" v-model="inputTxt">
       <button v-on:click="setAuthor">btn</button> -->
       <router-link to="/"><span>精选</span></router-link>
-      <router-link to="/steward"><span>94管家</span></router-link>
+      <router-link to="/Product/steward"><span>94管家</span></router-link>
   </div>
 </template>
 <style scoped>

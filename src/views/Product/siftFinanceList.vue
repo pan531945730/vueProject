@@ -1,12 +1,14 @@
 <template>
   <div class="pd-container">
     <product-nav v-bind:class="{'isSift':isNowPage}"></product-nav>
-    <product-list></product-list>
+    <product-list id="2"></product-list>
     <foot-bar></foot-bar>
   </div>
 </template>
-<style>
-
+<style scoped>
+  body{
+      background-color: #f2f2f2;
+  }
 </style>
 <script>
   import productNav from '../../component/productNav.vue';
@@ -25,8 +27,8 @@
     }
   }
 </script>
-<style>
-  body{
+<style scoped>
+  .pd-container{
       background-color: #f2f2f2;
   }
 </style>

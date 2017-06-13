@@ -1,14 +1,14 @@
 <template>
   <div class="pd-container">
     <product-nav v-bind:class="{'isSteward':isNowPage}"></product-nav>
-    <product-list></product-list>
+    <product-list id="1"></product-list>
     <foot-bar></foot-bar>
   </div>
 </template>
-<style>
-body{
-    background-color: #f2f2f2;
-}
+<style scoped>
+  .pd-container{
+      background-color: #f2f2f2;
+  }
 </style>
 <script>
   import * as _ from '../../assets/js/productList'
