@@ -7,14 +7,14 @@
         <label>
             <em class="bd-ico tel"></em>
             <span class="bd-input">
-                <input type="tel" placeholder="请输入手机号码" value="" maxlength="11" id="bd_tel">
+                <input type="tel" name="username" v-model="username" placeholder="请输入手机号码" value="" maxlength="11" id="bd_tel">
                 <i class="clear"></i>
             </span>
         </label>
         <label>
             <em class="bd-ico pwd"></em>
             <span class="bd-input">
-                <input type="password" placeholder="请输入94bank登录密码" value=""  id="bd_pwd">
+                <input type="password" name="password" v-model="password" placeholder="请输入94bank登录密码" value=""  id="bd_pwd">
                 <i class="clear"></i>
                 <em class="eyes"></em>
             </span>
@@ -28,26 +28,42 @@
             <img src="#" width="75" height="30" class="img-code" alt="图形验证码">
         </label>
         <p class="error-tip"><span></span><a href="#" class="log-findpwd">忘记密码？</a></p>
-        <a href="javascript:void(0);" class="bd-btn">立即登录</a>
+        <a href="javascript:void(0);" v-on:click="_login" class="bd-btn">立即登录</a>
     </div>
     <p class="fir-act">新用户，<a href="#">立即注册</a></p>
-    <foot-bar></foot-bar>
   </div>
 </template>
 <style>
 
 </style>
 <script>
-  import footBar from '../../component/footBar.vue';
-  export default{
-    components: {
-      footBar
+  //import { mapActions } from 'vuex';
+  import api from '../../fetch/api';
+  import * as _ from '../../util/tool';
+  export default {
+
+    data() {
+        return {
+            username: '',
+            password: ''
+        }
     },
-    data(){
-      return{
-      }
+    methods: {
+
+        // 用户登录
+        _login() {
+            if (!this.username || !this.password) {
+                _.alert('请填写完整')
+                return
+            }
+            let data = {
+                username: this.username,
+                password: this.password
+            }
+
+        }
     }
-  }
+}
 </script>
 <style scoped>
   .logo {

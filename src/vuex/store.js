@@ -1,21 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import com from './modules/com';
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  // 定义状态
-  state: {
-    author: 'Wise Wrong'
-  },
-  mutations:{
-    newAuthor(state,msg){
-      state.author = msg
-    }
-  },
-  actions: {
-
-  }
+   modules: {
+     com:com
+   }
 })
 
 export default store

@@ -11,7 +11,6 @@
   }
 </style>
 <script>
-  import * as _ from '../../assets/js/productList'
   import productNav from '../../component/productNav.vue'
   import productList from '../../component/productList.vue'
   import footBar from '../../component/footBar.vue'
