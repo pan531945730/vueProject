@@ -50,7 +50,7 @@ export default {
      * 产品列表
      */
     Product(params) {
-        return fetch('http://192.168.2.13:817/api/Ajax', params)
+        return fetch('http://np.94bank.com/api/Ajax', params)
     }
 
 }
