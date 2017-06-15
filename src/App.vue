@@ -1,17 +1,23 @@
 <template>
   <div id="app">
     <v-alert v-show="showAlert"></v-alert>
+    <v-toast v-show="showToast"></v-toast>
+    <v-loading v-show="loading"></v-loading>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import alert from '../src/component/Alert.vue';
+import toast from '../src/component/toast.vue';
+import loading from '../src/component/loading.vue';
 
 import {mapGetters,mapActions} from 'vuex'
 export default {
   components: {
-		'v-alert': alert
+		'v-alert': alert,
+    'v-toast' : toast,
+    'v-loading' : loading
 	},
   data () {
     return {
@@ -24,7 +30,9 @@ export default {
     }
   },
   computed: mapGetters([
-          'showAlert'
+          'showAlert',
+          'showToast',
+          'loading'
       ])
 }
 </script>

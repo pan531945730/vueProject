@@ -15,19 +15,19 @@ axios.interceptors.request.use((config) => {
     }
     return config;
 },(error) =>{
-    // _.toast("错误的传参", 'fail');
+    _.toast("错误的传参", 'fail');
     return Promise.reject(error);
 });
 
 //返回状态判断
 axios.interceptors.response.use((res) =>{
     if(!res.data.success){
-        // _.toast(res.data.msg);
+        _.toast(res.data.msg);
         return Promise.reject(res);
     }
     return res;
 }, (error) => {
-    //_.toast("网络异常", 'fail');
+    _.toast("网络异常", 'fail');
     return Promise.reject(error);
 });
 

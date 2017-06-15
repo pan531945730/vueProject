@@ -37,7 +37,7 @@
 
 </style>
 <script>
-  //import { mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
   import api from '../../fetch/api';
   import * as _ from '../../util/tool';
   export default {
@@ -60,7 +60,7 @@
                 username: this.username,
                 password: this.password
             }
-
+            this.$store.dispatch('setLoadingState', true)
         }
     }
 }
