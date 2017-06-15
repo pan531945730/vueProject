@@ -6,3 +6,6 @@ export const COM_TOAST_MSG = 'COM_TOAST_MSG'                //显示toast文字
 export const COM_SHOW_ALERT = 'COM_SHOW_ALERT'              //显示alert
 export const COM_ALERT_MSG = 'COM_ALERT_MSG'                //显示alert文字
 export const COM_LOADING_STATUS = 'COM_LOADING_STATUS'
+
+//user 用户
+export const SET_LOGIN_STATUS   = 'SET_LOGIN_STATUS' //设置登录状态

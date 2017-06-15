@@ -7,19 +7,19 @@
         <label>
             <em class="bd-ico tel"></em>
             <span class="bd-input">
-                <input type="tel" name="username" v-model="username" placeholder="请输入手机号码" value="" maxlength="11" id="bd_tel">
-                <i class="clear"></i>
+                <input type="tel" v-on:focus="focus" v-on:blur="blur" v-on:input="inPut" name="usertel" v-model="usertel" placeholder="请输入手机号码" value="" maxlength="11" id="tel">
+                <i class="clear" id="tel_clear" v-show="telClear" @click="clear"></i>
             </span>
         </label>
         <label>
             <em class="bd-ico pwd"></em>
             <span class="bd-input">
-                <input type="password" name="password" v-model="password" placeholder="请输入94bank登录密码" value=""  id="bd_pwd">
-                <i class="clear"></i>
-                <em class="eyes"></em>
+                <input type="password" v-on:focus="focus" v-on:blur="blur" v-on:input="inPut" name="password" v-model="password" placeholder="请输入94bank登录密码" value=""  id="pwd">
+                <i class="clear" id="pwd_clear" v-show="pwdClear" @click="clear"></i>
+                <em class="eyes" @click="eyes"></em>
             </span>
         </label>
-        <label class="imgcode-mod">
+        <label class="imgcode-mod" v-show="isimgcode">
             <em class="bd-ico imgcode"></em>
             <span class="bd-input">
                 <input type="number" placeholder="请输入图形验证码" value=""  maxlength="4" id="bd_imgcode">
@@ -37,30 +37,104 @@
 
 </style>
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions } from 'vuex'
   import api from '../../fetch/api';
   import * as _ from '../../util/tool';
   export default {
 
     data() {
         return {
-            username: '',
-            password: ''
+            usertel: '',
+            password: '',
+            codernm: ' ',
+            identifycode: ' ',
+            telClear: false,
+            pwdClear: false,
+            isimgcode: false
         }
     },
+    computed: mapActions([
+        'setUserInfo'
+    ]),
     methods: {
-
+        focus(e){
+          if(e.target.id == 'tel' && e.target.value!=''){
+            this.telClear = true;
+          }
+          if(e.target.id == 'pwd' && e.target.value!=''){
+            this.pwdClear = true;
+          }
+        },
+        blur(e){
+          if(e.target.id == 'tel'){
+            let that = this;
+            setTimeout(function(){
+              that.telClear = false;
+            },0)
+          }
+          if(e.target.id == 'pwd'){
+            let that = this;
+            setTimeout(function(){
+              that.pwdClear = false;
+            },0)
+          }
+        },
+        inPut(e){
+          if(e.target.id == 'tel'){
+            this.telClear = true;
+          }
+          if(e.target.id == 'pwd'){
+            this.pwdClear = true;
+          }
+        },
+        clear(e){
+          if(e.target.id == 'tel_clear'){
+            this.usertel = '';
+          }
+          if(e.target.id == 'pwd_clear'){
+            this.password = '';
+          }
+        },
+        eyes(e){
+          if(e.target.className == 'eyes'){
+            e.target.className = 'eyes open-eyes'
+          }else{
+            e.target.className = 'eyes'
+          }
+          let pwdType = document.getElementById('pwd')
+          if(pwdType.getAttribute('type') == 'password'){
+            pwdType.setAttribute('type','text')
+          }else{
+            pwdType.setAttribute('type','password')
+          }
+        },
         // 用户登录
         _login() {
-            if (!this.username || !this.password) {
-                _.alert('请填写完整')
-                return
+            if(!this.usertel){
+              _.alert('请输入手机号')
+              return false;
+            }else if(!/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.usertel)){
+              _.alert('请输入正确的手机号')
+              return false;
+            }
+            if(!this.password){
+              _.alert('请输入登录密码')
+              return false;
             }
             let data = {
-                username: this.username,
-                password: this.password
+              D: '{"phone":'+this.usertel+',"Pswd":'+this.password+',"VCodeRnm":'+this.codernm+',"IdentifyCode":'+this.identifycode+'}',
+              M : 'MemberLogin'
             }
             this.$store.dispatch('setLoadingState', true)
+            api.Login(data)
+              .then(res => {
+                console.log(res)
+              })
+              .catch(error => {
+                this.$store.dispatch('setLoadingState', false)
+                this.$store.dispatch('setUserInfo', true)
+                this.$router.replace('/Member/AccountCenter')
+              })
         }
     }
 }
@@ -76,9 +150,6 @@
     display: -webkit-box;
     -webkit-box-align: center;
     padding: 17px 0 8px 0;
-  }
-  .bd-form .imgcode-mod{
-    display: none;
   }
   .bd-form .bd-ico {
     display: block;
@@ -113,7 +184,7 @@
     background-size: 15px 16px;
   }
   .clear {
-    display: none;
+    display: block;
     width: 30px;
     height: 30px;
     background: url(../../assets/images/clear.png) no-repeat center center;
