@@ -52,12 +52,7 @@ export default {
     }
     api.Product(data)
       .then(res => {
-          console.log(res)
-          // this.items = res.data;
-          // console.log(this.items);
-      })
-      .catch(error => {
-          this.items = JSON.parse(error.data.D);
+          this.items = JSON.parse(res.D);
           for(let i=0; i<this.items.length; i++){
              let sta = this.items[i].status;
              let starTime = this.items[i].serverTimeText;
@@ -79,6 +74,9 @@ export default {
            for(let i=0; i<this.cirArr.length; i++){
              this.drawCir(this.cirArr[i]*3.6,i);
            }
+      })
+      .catch(error => {
+          console.log(error)
       })
   },
   methods : {

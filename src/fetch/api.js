@@ -10,21 +10,20 @@ axios.defaults.baseURL = 'http://np.94bank.com/';
 
 //POST传参序列化
 axios.interceptors.request.use((config) => {
+    // Do something before request is sent
     if(config.method  === 'post'){
         config.data = qs.stringify(config.data);
     }
     return config;
 },(error) =>{
+    // Do something with request error
     _.toast("错误的传参", 'fail');
     return Promise.reject(error);
 });
 
 //返回状态判断
 axios.interceptors.response.use((res) =>{
-    if(!res.data.success){
-        //_.toast(res.data.msg);
-        return Promise.reject(res);
-    }
+    // Do something with response data
     return res;
 }, (error) => {
     _.toast("网络异常", 'fail');
@@ -35,7 +34,15 @@ export function fetch(url, params) {
     return new Promise((resolve, reject) => {
         axios.post(url, params)
             .then(response => {
-                resolve(response.data);
+                let resData = response.data;
+                //resData['S'] = 101
+                if( resData['S'] == 0 ){
+                  resolve(response.data);
+                }else if( resData['S'] === 101 ){
+                  _.alert("登录超时", 'fail');
+                  //this.$store.dispatch('setSignOut', ture)
+                }
+
             }, err => {
                 reject(err);
             })

@@ -46,8 +46,8 @@
         return {
             usertel: '',
             password: '',
-            codernm: ' ',
-            identifycode: ' ',
+            codernm: '',
+            identifycode: '',
             telClear: false,
             pwdClear: false,
             isimgcode: false
@@ -122,18 +122,18 @@
               return false;
             }
             let data = {
-              D: '{"phone":'+this.usertel+',"Pswd":'+this.password+',"VCodeRnm":'+this.codernm+',"IdentifyCode":'+this.identifycode+'}',
+              D: '{"phone":"'+this.usertel+'","Pswd":"'+this.password+'"}',
               M : 'MemberLogin'
             }
             this.$store.dispatch('setLoadingState', true)
             api.Login(data)
               .then(res => {
-                console.log(res)
-              })
-              .catch(error => {
                 this.$store.dispatch('setLoadingState', false)
                 this.$store.dispatch('setUserInfo', true)
                 this.$router.replace('/Member/AccountCenter')
+              })
+              .catch(error => {
+                console.log(error);
               })
         }
     }

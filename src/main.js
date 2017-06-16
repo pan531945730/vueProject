@@ -6,7 +6,7 @@ import store from './vuex/store'
 
 //开启debug模式
 Vue.config.debug = true;
-
+Vue.config.devtools = true; //这步很重要
 Vue.use(Vuex)
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
