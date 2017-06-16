@@ -67,22 +67,24 @@ export default {
                this.cirArr.push(percentage);
              }
            }
-           for(let i=0; i<this.timeArr.length; i++){
-             this.contTimeDown(this.timeArr[i],i);
-           }
-
-           for(let i=0; i<this.cirArr.length; i++){
-             this.drawCir(this.cirArr[i]*3.6,i);
-           }
       })
       .catch(error => {
           console.log(error)
       })
   },
+  updated(){
+    var countEle = document.getElementsByClassName('countdown');
+    for(let i=0; i<this.timeArr.length; i++){
+      this.contTimeDown(this.timeArr[i],i,countEle[i]);
+    }
+    for(let i=0; i<this.cirArr.length; i++){
+      this.drawCir(this.cirArr[i]*3.6,i);
+    }
+  },
   methods : {
-    contTimeDown(second,i){
+    contTimeDown(second,i,ele){
       this.$nextTick(function(){
-        _.contTimeDown(second,i);
+        _.contTimeDown(second,i,ele);
       })
     },
     drawCir(num,i){

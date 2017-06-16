@@ -1,24 +1,21 @@
-export function contTimeDown(second,i){
-    timeDown(second,i);
+export function contTimeDown(second,i,ele){
+    timeDown(second,i,ele);
     let time = setInterval(()=>{
       second --;
-      timeDown(second,i);
+      timeDown(second,i,ele);
       if(second <= 0){
         clearInterval(time);
         location.reload();
       }
     },1000)
 }
-function timeDown(second,i){
+function timeDown(second,i,ele){
   let d = parseInt(second/86400)
   let h = formate(parseInt((second%86400)/3600))
   let m = formate(parseInt(((second%86400)%3600)/60))
   let s = formate(parseInt(((second%86400)%3600)%60))
   let time = `${d}天${h}:${m}:${s}`
-  let timeEle = document.getElementsByClassName('countdown')
-  if(timeEle.length > 0){
-    timeEle[i].innerHTML = time;
-  }
+  ele.innerHTML = time;
 }
 function formate(time){
   if(time>=10){
