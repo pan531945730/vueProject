@@ -29,3 +29,7 @@ export function alert(str) {
         store.dispatch('showAlert', false);
     },1500);
 }
+
+export function timeOut(){
+    store.dispatch('timeOut', true)
+}

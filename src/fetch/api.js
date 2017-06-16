@@ -35,12 +35,11 @@ export function fetch(url, params) {
         axios.post(url, params)
             .then(response => {
                 let resData = response.data;
-                //resData['S'] = 101
-                if( resData['S'] == 0 ){
+                if( resData['S'] === 0 ){
                   resolve(response.data);
                 }else if( resData['S'] === 101 ){
                   _.alert("登录超时", 'fail');
-                  //this.$store.dispatch('setSignOut', ture)
+                  _.timeOut();
                 }
 
             }, err => {

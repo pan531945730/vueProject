@@ -16,9 +16,9 @@ const actions = {
     },
 
     /**
-     * 退出登录
+     * 登录超时
      */
-    setSignOut({ commit }) {
+    timeOut({ commit }) {
         localStorage.removeItem('loginStatus')
         commit(types.SET_LOGIN_STATUS, false)
     }
