@@ -52,17 +52,8 @@ export function fetch(url, params) {
 }
 
 export default {
-    /**
-     * 用户登录
-     */
-    Login(params) {
-        return fetch('api/Ajax', params)
-    },
 
-    /**
-     * 产品列表
-     */
-    Product(params) {
+    postAjax(params) {
         return fetch('api/Ajax', params)
     }
 

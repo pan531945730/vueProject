@@ -30,6 +30,9 @@ export function alert(str) {
     },1500);
 }
 
+/**
+ * 登录超时公共方法
+ */
 export function timeOut(){
     store.dispatch('timeOut', true)
 }

@@ -126,7 +126,7 @@
               M : 'MemberLogin'
             }
             this.$store.dispatch('setLoadingState', true)
-            api.Login(data)
+            api.postAjax(data)
               .then(res => {
                 this.$store.dispatch('setLoadingState', false)
                 this.$store.dispatch('setUserInfo', true)

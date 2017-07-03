@@ -50,7 +50,7 @@ export default {
       D: '{"ProductTypeId":'+this.id+',"PageIndex":1,"PageSize":10}',
       M : 'GetProductList'
     }
-    api.Product(data)
+    api.postAjax(data)
       .then(res => {
           this.items = JSON.parse(res.D);
           for(let i=0; i<this.items.length; i++){
@@ -75,8 +75,10 @@ export default {
   updated(){
     var countEle = document.getElementsByClassName('countdown');
     for(let i=0; i<this.timeArr.length; i++){
-      this.contTimeDown(this.timeArr[i],i,countEle[i]);
+      this.contTimeDown(this.timeArr[i],i,[i]);
+      console.log(document.getElementsByClassName('countdown')[0])
     }
+
     for(let i=0; i<this.cirArr.length; i++){
       this.drawCir(this.cirArr[i]*3.6,i);
     }

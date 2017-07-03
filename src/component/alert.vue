@@ -28,6 +28,7 @@
         z-index: 1000;
         .alert-wrap {
             position: fixed;
+            z-index: 10;
             padding: 5px 10px;
             line-height: 22px;
             text-align: center;
