@@ -75,7 +75,7 @@ export default {
   updated(){
     var countEle = document.getElementsByClassName('countdown');
     for(let i=0; i<this.timeArr.length; i++){
-      this.contTimeDown(this.timeArr[i],i,[i]);
+      this.contTimeDown(this.timeArr[i],i,countEle[i]);
       console.log(document.getElementsByClassName('countdown')[0])
     }
 
