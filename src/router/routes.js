@@ -8,6 +8,10 @@ import Login from '../views/Member/Login.vue'
 const routes = [
   {
     path: '/',
+    redirect: '/Product/siftFinance'
+  },
+  {
+    path: '/Product/siftFinance',
     component: siftFinance
   },
   {
